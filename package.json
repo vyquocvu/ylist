@@ -1,15 +1,17 @@
 {
-  "name": "chat",
+  "name": "Linkdio",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "howler": "^2.2.3",
+    "nanoid": "^4.0.2",
     "next": "^13.2.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.2.1",
     "typescript": "4.7.3",
-    "ytdl-core": "^4.11.5"
+    "ytdl-core": "^4.11.5",
+    "zustand": "^4.3.9"
   },
   "devDependencies": {
     "@types/howler": "^2.2.7",

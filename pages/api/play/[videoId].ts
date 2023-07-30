@@ -20,7 +20,7 @@ export default function handler(
   response.setHeader('Transfer-Encoding', 'chunked');
 
   stream.on('data', (chunk) => {
-    console.log('sending chunk');
+    // console.log('sending chunk');
     response.write(chunk);
   });
   stream.on('end', () => {
