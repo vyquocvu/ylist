@@ -5,3 +5,8 @@ declare module "*.css" {
   const classNames: IClassNames;
   export = classNames;
 }
+declare namespace JSX {
+  interface IntrinsicElements {
+      'ion-icon': any
+  }
+}

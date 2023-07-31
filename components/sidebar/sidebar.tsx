@@ -1,23 +1,24 @@
+import { nanoid } from "nanoid";
 import { useEffect, useState } from "react";
 import { playlists as mock } from "../../data";
 import { usePlaylist } from "../../store/usePlaylist";
-import { nanoid } from "nanoid";
+import { IPlaylist } from "../../types/playlist";
 
 const SideBar = () => {
   const {
     current,
-    playlist,
+    playlists,
     setCurrent,
-    setPlaylist,
+    setPlaylists,
   } = usePlaylist();
 
   const [isAddNewList, setIsAddNewList] = useState(false);
   const [name, setName] = useState('');
 
   useEffect(() => {
-    if (!playlist.length) {
-      setPlaylist(mock);
-      setCurrent(1);
+    if (!playlists.length) {
+      setPlaylists(mock as IPlaylist[]);
+      setCurrent('1');
     }
   }, []);
 
@@ -30,21 +31,21 @@ const SideBar = () => {
       name: name,
       videos: []
     };
-    setPlaylist([...playlist, newList]);
+    setPlaylists([...playlists, newList]);
     setIsAddNewList(false);
   }
 
   const handleDelete = (id: string) => (e: any) => {
     e.preventDefault();
-    const newPlaylist = playlist.filter((item: any) => item.id !== id);
-    setPlaylist(newPlaylist);
+    const newPlaylist = playlists.filter((item: any) => item.id !== id);
+    setPlaylists(newPlaylist);
   }
 
   return (
     <div className="flex flex-col justify-between box-border w-72 pt-3 border border-solid border-black-10 z-10">
       <div className="top-5y-start flex-col flex gap-1 px-3">
         {
-          playlist.map((item: any) => (
+          playlists.map((item: any) => (
             <div
               key={item.id}
               className={`self-stretch rounded-lg cursor-pointer flex flex-row p-3 items-center justify-start relative gap-3 hover:bg-gray-300 ${item.id === current ? 'bg-gray-300' : ''}`}

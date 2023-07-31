@@ -5,6 +5,7 @@ import SideBar from "../sidebar/sidebar";
 import InputBar from "../inputbar/inputbar";
 import { getTime } from "../../utils/time";
 import { usePlaylist } from "../../store/usePlaylist";
+import { IPlaylist, IVideo } from "../../types/playlist";
 
 
 const Main = () => {
@@ -13,11 +14,11 @@ const Main = () => {
   const [isError, setIsError] = useState(false);
   const [video, setVideo] = useState<any>({});
 
-  const { current, playlist, setPlayListById } = usePlaylist();
+  const { current, playlists, setPlayListById } = usePlaylist();
 
-  console.log('playlist', playlist);
-  const currentPlaylist = playlist?.find((item: any) => item.id === current) || [];
-  const videos = currentPlaylist?.videos || [];
+  console.log('playlist', playlists);
+  const currentPlaylist = playlists?.find((item: IPlaylist) => item.id === current);
+  const videos: IVideo[] | [] = currentPlaylist?.videos || [];
 
   const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
     const src = e.target.value;
@@ -57,7 +58,7 @@ const Main = () => {
     var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
     var match = yurl.match(regExp);
     if (match && match[2].length == 11) {
-      if (videos.find((item: any) => item.videoId === match[2])) {
+      if (videos.find((item: any) => match && item.videoId === match[2])) {
         setIsError(true);
         return;
       }
@@ -94,12 +95,12 @@ const Main = () => {
                         <img src="/audio-wave.gif" className="w-5" />
                       </div>) : (
                       <div onClick={() => handleClickPlay(video?.videoId as string)} className="cursor-pointer p-3 w-8 flex-shrink-0">
-                        <ion-icon name="play-outline"></ion-icon>
+                        <ion-icon name="play-outline"/>
                       </div>
                     )
                   }
                   <div className="p-3 w-8 flex-shrink-0 hidden">
-                    <ion-icon name="heart-outline"></ion-icon>
+                    <ion-icon name="heart-outline"/>
                   </div>
                   <div className="p-3 w-full flex items-center">
                     <img height={30} src={`https://i.ytimg.com/vi/${video?.videoId}/default.jpg`} />
@@ -111,7 +112,7 @@ const Main = () => {
                   <div className="p-3 w-full">Youtube</div>
                   <div className="p-3 w-12 flex-shrink-0 text-right">{getTime(+(video?.lengthSeconds || 0))}</div>
                   <div onClick={() => handleDelete(video?.videoId)} className="p-3 w-8 flex-shrink-0 cursor-pointer">
-                    <ion-icon name="trash-outline"></ion-icon>
+                    <ion-icon name="trash-outline"/>
                   </div>
                 </div>
               )

@@ -149,7 +149,7 @@ const Player = ({ playId, video, handleNext, handlePrev }: PlayerProps) => {
       <div id="controlers" className="w-1/3 flex flex-col h-full text-gray-700 ">
         <div className="h-3/5 flex justify-center items-center">
           <div className="rounded-full scale-75 h-8 w-8 hover:text-gray-300 cursor-pointer flex mx-2 items-center justify-center" onClick={handlePlayPrev}>
-            <ion-icon name="play-skip-back-sharp" size="large"></ion-icon>
+            <ion-icon name="play-skip-back-sharp" size="large" />
           </div>
 
           <div className="rounded-full scale-125 hover:text-gray-300 cursor-pointer flex mx-2 items-center justify-center" onClick={playingButton}>
@@ -158,7 +158,7 @@ const Player = ({ playId, video, handleNext, handlePrev }: PlayerProps) => {
             }
           </div>
           <div className="rounded-full scale-75 h-8 w-8 hover:text-gray-300 cursor-pointer flex mx-2 items-center justify-center" onClick={handlePlayNext}>
-            <ion-icon name="play-skip-forward-sharp" size="large"></ion-icon>
+            <ion-icon name="play-skip-forward-sharp" size="large" />
           </div>
         </div>
         <div className="h-2/5 w-full flex justify-between items-center">
