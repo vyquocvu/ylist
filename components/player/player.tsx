@@ -48,6 +48,7 @@ const Player = ({ playId, video, handleNext, handlePrev }: PlayerProps) => {
         onend: function() {
           // autoplay next
           clearInterval(interval);
+          interval = null;
           setJump(0);
           setSeconds(0);
           setIsLoaded(false);
@@ -69,7 +70,7 @@ const Player = ({ playId, video, handleNext, handlePrev }: PlayerProps) => {
 
   useEffect(() => {
     if (isLoaded && sound && sound.duration()) {
-      const sec = sound.duration();
+      const sec = Math.ceil(sound.duration());
       const min = Math.floor(sec / 60);
       const secRemain = Math.floor(sec % 60);
       setTime({
@@ -82,7 +83,7 @@ const Player = ({ playId, video, handleNext, handlePrev }: PlayerProps) => {
         sec: 0
       });
     }
-  }, [isLoaded]);
+  }, [isLoaded, sound]);
 
   useEffect(() => {
     if (!interval && isLoaded) {
@@ -137,7 +138,7 @@ const Player = ({ playId, video, handleNext, handlePrev }: PlayerProps) => {
   const thumbnail = playId ? `https://i.ytimg.com/vi/${playId}/default.jpg` : 'https://source.unsplash.com/bsLXJsucvxc/100x100';
 
   return (
-    <div id="player" className={`font-regular w-screen bottom-0 flex flex-row overflow-hidden ${playId ? 'h-24' : 'h-0'}`}>
+    <div id="player" className={`font-regular w-screen  border-t border-solid border-black-10 bottom-0 flex flex-row overflow-hidden ${playId ? 'h-24' : 'h-0'}`}>
       <div id="cover-and-title" className="flex w-1/3 items-center justify-start gap-2 px-2">
         <div id="cover" className="h-20">
           <img src={thumbnail} className="object-cover h-full w-full" />
@@ -162,7 +163,7 @@ const Player = ({ playId, video, handleNext, handlePrev }: PlayerProps) => {
           </div>
         </div>
         <div className="h-2/5 w-full flex justify-between items-center">
-          <span className="text-sm text-gray-500 w-12 text-left">{currTime.sec ? `${currTime.min}:${getSeconds(currTime.sec)}` : '00:00'}</span>
+          <span className="text-sm text-gray-700 w-12 text-left">{currTime.sec || currTime.min ? `${currTime.min}:${getSeconds(currTime.sec)}` : '00:00'}</span>
           <input
             className="h-1 w-full"
             type="range"
@@ -179,7 +180,7 @@ const Player = ({ playId, video, handleNext, handlePrev }: PlayerProps) => {
               }, 1000);
             }}
           />
-          <span className="text-sm text-gray-200 w-12 text-right">{time.sec ? `${time.min}:${getSeconds(time.sec)}`: '00:00'}</span>
+          <span className="text-sm text-gray-700 w-12 text-right">{time.sec || time.min ? `${time.min}:${getSeconds(time.sec)}`: '00:00'}</span>
         </div>
       </div>
       <div id="volume" className="w-1/3 flex justify-end items-center text-gray-500 p-3">

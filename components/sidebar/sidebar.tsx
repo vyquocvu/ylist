@@ -42,7 +42,7 @@ const SideBar = () => {
   }
 
   return (
-    <div className="flex flex-col justify-between box-border w-72 pt-3 border border-solid border-black-10 z-10">
+    <div className="flex flex-col justify-between box-border w-72 pt-3 border-x border-solid border-black-10 z-10">
       <div className="top-5y-start flex-col flex gap-1 px-3">
         {
           playlists.map((item: any) => (
