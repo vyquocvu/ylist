@@ -72,17 +72,18 @@ const Main = () => {
           text: 'Video is longer than 8 minutes!',
         });
         return;
+      } else {
+        const newvid = {
+          ownerChannelName: data.videoDetails.ownerChannelName,
+          title: data.videoDetails.title,
+          uploadDate: data.videoDetails.uploadDate,
+          videoId: data.videoDetails.videoId,
+          lengthSeconds: data.videoDetails.lengthSeconds,
+          video_url: data.videoDetails.video_url,
+        }
+        setPlayListById(current, [...videos, newvid])
+        setYurl('');
       }
-      const newvid = {
-        ownerChannelName: data.videoDetails.ownerChannelName,
-        title: data.videoDetails.title,
-        uploadDate: data.videoDetails.uploadDate,
-        videoId: data.videoDetails.videoId,
-        lengthSeconds: data.videoDetails.lengthSeconds,
-        video_url: data.videoDetails.video_url,
-      }
-      setPlayListById(current, [...videos, newvid])
-      setYurl('');
     } else {
       setIsError(true);
       return;
