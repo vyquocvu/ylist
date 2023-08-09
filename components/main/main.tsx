@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import { ChangeEvent, useState } from "react";
+import Swal from 'sweetalert2';
 import Player from "../player/player";
 import SideBar from "../sidebar/sidebar";
 import InputBar from "../inputbar/inputbar";
@@ -64,6 +65,14 @@ const Main = () => {
       }
       const info = await fetch('/api/info/' + match[2]);
       const data = await info.json();
+      if (data.videoDetails.lengthSeconds > 480) {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Oops...',
+          text: 'The video length exceeds the allowed limit',
+        });
+        return;
+      }
       const newvid = {
         ownerChannelName: data.videoDetails.ownerChannelName,
         title: data.videoDetails.title,
