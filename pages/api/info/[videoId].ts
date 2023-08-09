@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import ytdl from 'ytdl-core';
 
-export default function handler(
+export default async function handler(
   request: NextApiRequest,
   response: NextApiResponse,
 ) {
@@ -10,7 +10,7 @@ export default function handler(
     response.status(400).send('Invalid video ID');
     return;
   }
-  ytdl.getInfo(videoID).then((info) => {
-    response.status(200).json(info);
-  });
+  const info = await ytdl.getInfo(videoID);
+  const downloadLinks = info.formats.map((format) => format.url);
+  response.status(200).json({ ...info, downloadLinks });
 }
