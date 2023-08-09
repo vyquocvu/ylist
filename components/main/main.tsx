@@ -65,14 +65,12 @@ const Main = () => {
       }
       const info = await fetch('/api/info/' + match[2]);
       const data = await info.json();
-      if (data.videoDetails.lengthSeconds > 480) {
-        Swal.fire({
-          icon: 'warning',
-          title: 'Oops...',
-          text: 'The video length exceeds the allowed limit',
-        });
-        return;
-      }
+      const downloadLinks = data.downloadLinks; // Assuming the download links are available in the `data` response
+      Swal.fire({
+        icon: 'success',
+        title: 'Download Links',
+        html: downloadLinks.map((link: string) => `<a href="${link}" target="_blank">${link}</a>`).join('<br>'),
+      });
       const newvid = {
         ownerChannelName: data.videoDetails.ownerChannelName,
         title: data.videoDetails.title,
