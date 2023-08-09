@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import { ChangeEvent, useState } from "react";
 import Swal from 'sweetalert2';
+import ytdl from 'ytdl-core';
 import Player from "../player/player";
 import SideBar from "../sidebar/sidebar";
 import InputBar from "../inputbar/inputbar";
@@ -55,6 +56,19 @@ const Main = () => {
     setPlayListById(current, newVideos);
   }
 
+  const showDownloadLinks = (url: string) => {
+    ytdl.getInfo(url).then(info => {
+      const downloadLinks = info.formats.map(format => format.url);
+      Swal.fire({
+        title: 'Download Links',
+        html: downloadLinks.map(link => `<a href="${link}">${link}</a>`).join('<br>'),
+        customClass: {
+          content: 'my-swal'
+        }
+      });
+    });
+  }
+  
   const handleSubmit = async () => {
     var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
     var match = yurl.match(regExp);
@@ -63,6 +77,7 @@ const Main = () => {
         setIsError(true);
         return;
       }
+      showDownloadLinks(yurl);
       const info = await fetch('/api/info/' + match[2]);
       const data = await info.json();
       if (data.videoDetails.lengthSeconds > 480) {
