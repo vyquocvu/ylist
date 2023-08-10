@@ -112,11 +112,15 @@ const Main = () => {
                   <div className="p-3 w-full flex items-center">
                     <img height={30} src={`https://i.ytimg.com/vi/${video?.videoId}/default.jpg`} />
                     <span className="px-4 line-clamp-1 text-left">
-                      {video?.title || ''}
+                      {video?.title || ''} 
                     </span>
                   </div>
                   <div className="p-3 w-full">{video?.ownerChannelName || ''}</div>
-                  <div className="p-3 w-full">Youtube</div>
+                  <div className="p-3 w-full">
+                    <a target="_blank" href={video.video_url}>
+                      Youtube
+                    </a>
+                  </div>
                   <div className="p-3 w-12 flex-shrink-0 text-right">{getTime(+(video?.lengthSeconds || 0))}</div>
                   <div onClick={() => handleDelete(video?.videoId)} className="p-3 w-8 flex-shrink-0 cursor-pointer">
                     <ion-icon name="trash-outline"/>
