@@ -5,19 +5,19 @@ import Player from "../player/player";
 import SideBar from "../sidebar/sidebar";
 import InputBar from "../inputbar/inputbar";
 import { getTime } from "../../utils/time";
+import { usePlayer } from "../../store/usePlayer";
 import { usePlaylist } from "../../store/usePlaylist";
 import { IPlaylist, IVideo } from "../../types/playlist";
 
 
 const Main = () => {
   const [yurl, setYurl] = useState('');
-  const [playId, setPlayId] = useState<string>('');
   const [isError, setIsError] = useState(false);
   const [video, setVideo] = useState<any>({});
 
   const { current, playlists, setPlayListById } = usePlaylist();
+  const { playingId, setPlayingId, isRepeat, isPlaying } = usePlayer();
 
-  console.log('playlist', playlists);
   const currentPlaylist = playlists?.find((item: IPlaylist) => item.id === current);
   const videos: IVideo[] | [] = currentPlaylist?.videos || [];
 
@@ -28,30 +28,46 @@ const Main = () => {
   }
 
   const handleClickPlay = (id: string) => {
-    if (playId === id) {
+    if (playingId === id) {
       return;
     }
     const playingVideo = videos.find((item: any) => item.videoId === id);
     setVideo(playingVideo);
-    setPlayId(id);
+    setPlayingId(id);
   }
 
   const handleNext = () => {
-    const index = videos.findIndex((item: any) => item.videoId === playId);
+    const index = videos.findIndex((item: any) => item.videoId === playingId);
     if (index < videos.length - 1) {
-      setPlayId(videos[index + 1].videoId);
+      setPlayingId(videos[index + 1].videoId);
+    } else if (isRepeat) {
+      // repeat
+      setPlayingId(videos[0].videoId);
     }
   }
 
   const handlePrev = () => {
-    const index = videos.findIndex((item: any) => item.videoId === playId);
+    const index = videos.findIndex((item: any) => item.videoId === playingId);
     if (index > 0) {
-      setPlayId(videos[index - 1].videoId);
+      setPlayingId(videos[index - 1].videoId);
     }
   }
 
   const handleDelete = (id: string) => {
     const newVideos = videos.filter((item: any) => item.videoId !== id);
+    setPlayListById(current, newVideos);
+  }
+
+  const handleLike = (id: string) => {
+    const newVideos = videos.map((item: any) => {
+      if (item.videoId === id) {
+        return {
+          ...item,
+          isLiked: !item.isLiked
+        }
+      }
+      return item;
+    });
     setPlayListById(current, newVideos);
   }
 
@@ -69,7 +85,10 @@ const Main = () => {
         Swal.fire({
           icon: 'warning',
           title: 'Oops...',
-          text: 'The video length exceeds the allowed limit',
+          html: `The video length exceeds the allowed limit',
+          <br/> Go to <a target="_blank" href="${yurl}">Youtube</a>`,
+        }).then(() => {
+          setYurl('');
         });
         return;
       }
@@ -94,33 +113,41 @@ const Main = () => {
       <div className="flex flex-1 rounded-2xl bg-white-100 w-full overflow-hidden text-left text-sm text-black-100 font-regular">
         <SideBar />
         <div className="relative w-full overflow-hidden text-center z-0 ">
-          <div>
+          <div className="table">
             {
               videos.map((video: any) => (
                 <div key={`${video?.videoId}`} className="flex border-b border-gray-800 items-center">
                   {
-                    playId === video?.videoId ? (
-                      <div className="p-3 w-8 flex-shrink-0">
-                        <img src="/audio-wave.gif" className="w-5" />
+                    playingId === video?.videoId ? (
+                      <div className="md:p-3 w-8 flex-shrink-0">
+                        {
+                          isPlaying ? <img src="/audio-wave.gif" className="w-5" /> : <ion-icon name="pause-outline"/>
+                        }
                       </div>) : (
-                      <div onClick={() => handleClickPlay(video?.videoId as string)} className="cursor-pointer p-3 w-8 flex-shrink-0">
+                      <div onClick={() => handleClickPlay(video?.videoId as string)} className="cursor-pointer md:p-3 w-8 flex-shrink-0">
                         <ion-icon name="play-outline"/>
                       </div>
                     )
                   }
-                  <div className="p-3 w-8 flex-shrink-0 hidden">
-                    <ion-icon name="heart-outline"/>
-                  </div>
-                  <div className="p-3 w-full flex items-center">
-                    <img height={30} src={`https://i.ytimg.com/vi/${video?.videoId}/default.jpg`} />
+                  <div className="p-3 w-full flex items-center text-xs">
+                    <img height={30} src={`https://i.ytimg.com/vi/${video?.videoId}/mqdefault.jpg`} />
                     <span className="px-4 line-clamp-1 text-left">
                       {video?.title || ''} 
                     </span>
                   </div>
                   <div className="p-3 w-full">{video?.ownerChannelName || ''}</div>
-                  <div className="p-3 w-full">
+                  <div className="md:p-3 w-8 flex-shrink-0 hidden md:block cursor-pointer" onClick={() => handleLike(video.videoId)}>
+                    {
+                      video?.isLiked ? (
+                        <ion-icon name="heart"/>
+                      ) : (
+                        <ion-icon name="heart-outline"/>
+                      )
+                    }
+                  </div>
+                  <div className="p-3 w-full hidden md:block">
                     <a target="_blank" href={video.video_url}>
-                      Youtube
+                      Youtube <ion-icon name="open-outline"></ion-icon>
                     </a>
                   </div>
                   <div className="p-3 w-12 flex-shrink-0 text-right">{getTime(+(video?.lengthSeconds || 0))}</div>
@@ -128,8 +155,7 @@ const Main = () => {
                     <ion-icon name="trash-outline"/>
                   </div>
                 </div>
-              )
-              )
+              ))
             }
           </div>
           <div className="absolute bottom-0 bg-white-80 border-t border-solid border-black-10 w-full overflow-hidden flex flex-col py-5 box-border items-center text-left text-sm text-black-20">
@@ -137,7 +163,7 @@ const Main = () => {
           </div>
         </div>
       </div>
-      <Player playId={playId} video={video} handleNext={handleNext} handlePrev={handlePrev} />
+      <Player video={video} handleNext={handleNext} handlePrev={handlePrev} />
     </div>
   )
 }

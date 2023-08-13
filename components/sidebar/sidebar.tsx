@@ -42,7 +42,7 @@ const SideBar = () => {
   }
 
   return (
-    <div className="flex flex-col justify-between box-border w-72 pt-3 border-x border-solid border-black-10 z-10">
+    <div className="flex flex-col justify-between box-border w-0 md:w-72 pt-3 border-x border-solid border-black-10 z-10 overflow-hidden">
       <div className="top-5y-start flex-col flex gap-1 px-3">
         {
           playlists.map((item: any) => (
@@ -67,9 +67,7 @@ const SideBar = () => {
                 <input
                   onChange={(e) => setName(e.target.value)}
                   onKeyUp={(e) => {
-                    if (e.code === 'Enter') {
-                      handleAddNewList();
-                    }
+                    if (e.code === 'Enter') handleAddNewList();
                   }}
                   value={name}
                   placeholder="Playlist name"
@@ -78,7 +76,7 @@ const SideBar = () => {
             ) : (
               <button
                 onClick={() => setIsAddNewList(true)}
-                className="rounded-xl bg-black-100 cursor-pointer h-11 flex flex-row mt-2 py-2 px-4 box-border w-full items-center justify-center gap-3 text-center text-lg text-white-100">
+                className="rounded-xl bg-black-100 cursor-pointer h-11 flex flex-row mt-2 py-2 px-4 box-border w-full items-center justify-center gap-3 text-center text-white-100">
               <div className="leading-[28px]">
                 + New list
               </div>
