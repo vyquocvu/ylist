@@ -18,7 +18,7 @@ const SideBar = () => {
   useEffect(() => {
     if (!playlists.length) {
       setPlaylists(mock as IPlaylist[]);
-      setCurrent('1');
+      setCurrent('v0uTDmLk');
     }
   }, []);
 

@@ -146,7 +146,7 @@ const Player = ({ video, handleNext, handlePrev }: PlayerProps) => {
   const thumbnail = playingId ? `https://i.ytimg.com/vi/${playingId}/mqdefault.jpg` : 'https://source.unsplash.com/bsLXJsucvxc/100x100';
 
   return (
-    <div id="player" className={`font-regular w-screen border-solid border-black-10 bottom-0 flex flex-row overflow-hidden ${playingId ? 'h-24' : 'h-0'}`}>
+    <div id="player" className={`font-regular w-screen border-t border-solid border-black-10 bottom-0 flex flex-row overflow-hidden ${playingId ? 'h-24' : 'h-0'}`}>
       <div id="cover-and-title" className="flex w-1/3 items-center justify-start gap-2 px-2">
         <div id="cover" className="h-20 hidden md:block">
           <img src={thumbnail} className="object-cover h-full w-full" />

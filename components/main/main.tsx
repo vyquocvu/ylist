@@ -1,5 +1,5 @@
-import type { NextPage } from "next";
 import { ChangeEvent, useState } from "react";
+import Head from "next/head";
 import Swal from 'sweetalert2';
 import Player from "../player/player";
 import SideBar from "../sidebar/sidebar";
@@ -110,10 +110,13 @@ const Main = () => {
 
   return (
     <div className="h-screen flex flex-col">
+      <Head>
+        <title>{video?.title || 'Playing'}</title>
+      </Head>
       <div className="flex flex-1 rounded-2xl bg-white-100 w-full overflow-hidden text-left text-sm text-black-100 font-regular">
         <SideBar />
         <div className="relative w-full overflow-hidden text-center z-0 ">
-          <div className="table">
+          <div className="w-full h-[calc(100%-70px)] overflow-auto">
             {
               videos.map((video: any) => (
                 <div key={`${video?.videoId}`} className="flex border-b border-gray-800 items-center">
@@ -158,7 +161,7 @@ const Main = () => {
               ))
             }
           </div>
-          <div className="absolute bottom-0 bg-white-80 border-t border-solid border-black-10 w-full overflow-hidden flex flex-col py-5 box-border items-center text-left text-sm text-black-20">
+          <div className="absolute bottom-0 h-[68px] bg-white border-t border-solid border-black-10 w-full overflow-hidden flex flex-col py-3 box-border items-center text-left text-sm text-black-20">
             <InputBar isError={isError} yurl={yurl} handleOnChange={handleOnChange} handleSubmit={handleSubmit} />
           </div>
         </div>
