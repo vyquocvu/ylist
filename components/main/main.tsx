@@ -134,12 +134,16 @@ const Main = () => {
                   }
                   <div className="p-3 w-full flex items-center text-xs">
                     <img height={30} src={`https://i.ytimg.com/vi/${video?.videoId}/mqdefault.jpg`} />
-                    <span className="px-4 line-clamp-1 text-left">
-                      {video?.title || ''} 
-                    </span>
+                    <div className="flex flex-col text-left">
+                      <span className="pl-4 w-full line-clamp-1 text-left">
+                        {video?.title || ''} 
+                      </span>
+                      <span className="pl-4 w-full line-clamp-1 md:hidden">{video?.ownerChannelName || ''}</span>
+                    </div>
                   </div>
-                  <div className="p-3 w-full">{video?.ownerChannelName || ''}</div>
-                  <div className="md:p-3 w-8 flex-shrink-0 hidden md:block cursor-pointer" onClick={() => handleLike(video.videoId)}>
+                  <div className="p-3 w-full hidden md:block">{video?.ownerChannelName || ''}</div>
+
+                  <div className="md:p-3 w-fit flex-shrink-0 hidden md:block cursor-pointer" onClick={() => handleLike(video.videoId)}>
                     {
                       video?.isLiked ? (
                         <ion-icon name="heart"/>
@@ -148,7 +152,7 @@ const Main = () => {
                       )
                     }
                   </div>
-                  <div className="p-3 w-full hidden md:block">
+                  <div className="p-3 w-fit hidden md:block">
                     <a target="_blank" href={video.video_url}>
                       Youtube <ion-icon name="open-outline"></ion-icon>
                     </a>
