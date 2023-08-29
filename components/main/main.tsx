@@ -8,7 +8,7 @@ import { getTime } from "../../utils/time";
 import { usePlayer } from "../../store/usePlayer";
 import { usePlaylist } from "../../store/usePlaylist";
 import { IPlaylist, IVideo } from "../../types/playlist";
-
+import { Image } from "@nextui-org/react";
 
 const Main = () => {
   const [yurl, setYurl] = useState('');
@@ -113,7 +113,7 @@ const Main = () => {
       <Head>
         <title>{video?.title || 'Playing'}</title>
       </Head>
-      <div className="flex flex-1 rounded-2xl bg-white-100 w-full overflow-hidden text-left text-sm text-black-100 font-regular">
+      <div className="flex flex-1 rounded-2xl w-full overflow-hidden text-left text-sm font-regular">
         <SideBar />
         <div className="relative w-full overflow-hidden text-center z-0 ">
           <div className="w-full h-[calc(100%-70px)] overflow-auto">
@@ -152,9 +152,9 @@ const Main = () => {
                       )
                     }
                   </div>
-                  <div className="p-3 w-fit hidden md:block">
-                    <a target="_blank" href={video.video_url}>
-                      Youtube <ion-icon name="open-outline"></ion-icon>
+                  <div className="pl-2 w-fit hidden md:flex">
+                    <a className="flex leading-3 gap-1" target="_blank" href={video.video_url}>
+                      Open <ion-icon name="open-outline"></ion-icon>
                     </a>
                   </div>
                   <div className="p-3 w-12 flex-shrink-0 text-right">{getTime(+(video?.lengthSeconds || 0))}</div>
@@ -165,7 +165,7 @@ const Main = () => {
               ))
             }
           </div>
-          <div className="absolute bottom-0 h-[68px] bg-white border-t border-solid border-black-10 w-full overflow-hidden flex flex-col py-3 box-border items-center text-left text-sm text-black-20">
+          <div className="absolute bottom-0 h-[68px] border-t border-solid border-black-10 w-full overflow-hidden flex flex-col py-3 box-border items-center text-left text-sm text-black-20">
             <InputBar isError={isError} yurl={yurl} handleOnChange={handleOnChange} handleSubmit={handleSubmit} />
           </div>
         </div>

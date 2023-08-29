@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { playlists as mock } from "../../data";
 import { usePlaylist } from "../../store/usePlaylist";
 import { IPlaylist } from "../../types/playlist";
+import { Input } from "@nextui-org/react";
 
 const SideBar = () => {
   const {
@@ -56,7 +57,7 @@ const SideBar = () => {
                 {item.name}
               </div>
               <div className="absolute right-2" onClick={handleDelete(item.id)}>
-                <ion-icon name="trash-outline" />
+              <ion-icon name="trash-outline" />
               </div>
             </div>
           ))
@@ -64,14 +65,14 @@ const SideBar = () => {
         {
           isAddNewList ? (
              <div className="self-stretch rounded-lg cursor-pointer flex flex-row mt-2">
-                <input
-                  onChange={(e) => setName(e.target.value)}
-                  onKeyUp={(e) => {
-                    if (e.code === 'Enter') handleAddNewList();
-                  }}
-                  value={name}
-                  placeholder="Playlist name"
-                  className="h-10 self-stretch flex-1 outline-none bg-gray-200 rounded-lg px-4" /> 
+              <Input
+                onChange={(e: any) => setName(e.target.value)}
+                onKeyUp={(e: any) => {
+                  if (e.code === 'Enter') handleAddNewList();
+                }}
+                value={name}
+                placeholder="Playlist name"
+                className="h-10 self-stretch flex-1 outline-none bg-gray-200 rounded-lg px-4" /> 
               </div>
             ) : (
               <button
