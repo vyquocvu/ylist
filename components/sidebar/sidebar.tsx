@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { playlists as mock } from "../../data";
 import { usePlaylist } from "../../store/usePlaylist";
 import { IPlaylist } from "../../types/playlist";
-import { Button, Input, Icon } from "nextui";
+import { Input, Icon } from "@nextui-org/react";
 
 const SideBar = () => {
   const {
@@ -52,12 +52,12 @@ const SideBar = () => {
               className={`self-stretch rounded-lg cursor-pointer flex flex-row p-3 items-center justify-start relative gap-3 hover:bg-gray-300 ${item.id === current ? 'bg-gray-300' : ''}`}
               onClick={() => setCurrent(item.id)}
             >
-          <Icon name="musical-notes-outline" />
+              <ion-icon name="musical-notes-outline" />
               <div className="relative leading-5">
                 {item.name}
               </div>
               <div className="absolute right-2" onClick={handleDelete(item.id)}>
-              <Icon name="trash-outline" />
+              <ion-icon name="trash-outline" />
               </div>
             </div>
           ))
@@ -66,8 +66,8 @@ const SideBar = () => {
           isAddNewList ? (
              <div className="self-stretch rounded-lg cursor-pointer flex flex-row mt-2">
               <Input
-                onChange={(e) => setName(e.target.value)}
-                onKeyUp={(e) => {
+                onChange={(e: any) => setName(e.target.value)}
+                onKeyUp={(e: any) => {
                   if (e.code === 'Enter') handleAddNewList();
                 }}
                 value={name}
@@ -87,21 +87,25 @@ const SideBar = () => {
       </div>
       <div className="w-auto flex flex-col items-start justify-start gap-1 hidden">
         <div className="self-stretch flex flex-row p-3 items-center justify-start relative gap-3">
-              <Icon name="trashd2" />
+          <img className="relative w-6 h-6" alt="" src="/trashd2.svg" />
           <div className="relative leading-5 ">
             Clear conversations
           </div>
         </div>
         <div className="self-stretch flex flex-row p-3 items-center justify-start relative gap-3">
-          <Icon name="sund4" />
+          <img className="relative w-6 h-6" alt="" src="/sund4.svg" />
           <div className="relative leading-5 ">Light mode</div>
         </div>
         <div className="self-stretch flex flex-row p-3 items-center justify-start relative gap-3">
-          <Icon name="userd3" />
+          <img className="relative w-6 h-6" alt="" src="/userd3.svg" />
           <div className="relative leading-5">My account</div>
         </div>
         <div className="self-stretch flex flex-row p-3 items-center justify-start relative gap-3">
-          <Icon name="signoutd2" />
+          <img
+            className="relative w-6 h-6"
+            alt=""
+            src="/arrowsquareoutd2.svg"
+          />
           <div className="relative leading-5 ">{`Updates & FAQ`}</div>
         </div>
         <div className="self-stretch flex flex-row p-3 items-center justify-start relative gap-3">

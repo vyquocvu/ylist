@@ -1,13 +1,13 @@
 import React from "react";
 import Head from "next/head";
+import {NextUIProvider} from "@nextui-org/react";
 import type { AppProps } from "next/app";
-import { ThemeProvider } from "nextui";
 import "./global.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ThemeProvider>
-      <React.Fragment>
+    <NextUIProvider>
+      <main className="dark w-full h-full text-foreground bg-background">
         <Head>
           <title>Linkdio</title>
           <meta
@@ -18,8 +18,8 @@ function MyApp({ Component, pageProps }: AppProps) {
           <script src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
         </Head>
         <Component {...pageProps} />
-      </React.Fragment>
-    </ThemeProvider>
+      </main>
+    </NextUIProvider>
   );
 }
 

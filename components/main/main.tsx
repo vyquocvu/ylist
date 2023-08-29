@@ -1,5 +1,4 @@
 import { ChangeEvent, useState } from "react";
-import { ChangeEvent, useState } from "react";
 import Head from "next/head";
 import Swal from 'sweetalert2';
 import Player from "../player/player";
@@ -9,7 +8,7 @@ import { getTime } from "../../utils/time";
 import { usePlayer } from "../../store/usePlayer";
 import { usePlaylist } from "../../store/usePlaylist";
 import { IPlaylist, IVideo } from "../../types/playlist";
-import { Button, Image } from "nextui";
+import { Image } from "@nextui-org/react";
 
 const Main = () => {
   const [yurl, setYurl] = useState('');
@@ -114,67 +113,11 @@ const Main = () => {
       <Head>
         <title>{video?.title || 'Playing'}</title>
       </Head>
-      <div className="flex flex-1 rounded-2xl bg-white-100 w-full overflow-hidden text-left text-sm text-black-100 font-regular">
+      <div className="flex flex-1 rounded-2xl w-full overflow-hidden text-left text-sm font-regular">
         <SideBar />
         <div className="relative w-full overflow-hidden text-center z-0 ">
           <div className="w-full h-[calc(100%-70px)] overflow-auto">
             {
-              videos.map((video: any) => (
-                <div key={`${video?.videoId}`} className="flex border-b border-gray-800 items-center">
-                  {
-                    playingId === video?.videoId ? (
-                      <div className="md:p-3 w-8 flex-shrink-0">
-                        {
-                          isPlaying ? <img src="/audio-wave.gif" className="w-5" /> : <ion-icon name="pause-outline"/>
-                        }
-                      </div>) : (
-                      <div onClick={() => handleClickPlay(video?.videoId as string)} className="cursor-pointer md:p-3 w-8 flex-shrink-0">
-                        <ion-icon name="play-outline"/>
-                      </div>
-                    )
-                  }
-                  <div className="p-3 w-full flex items-center text-xs">
-                    <Image height={30} src={`https://i.ytimg.com/vi/${video?.videoId}/mqdefault.jpg`} />
-                    <div className="flex flex-col text-left">
-                      <span className="pl-4 w-full line-clamp-1 text-left">
-                        {video?.title || ''} 
-                      </span>
-                      <span className="pl-4 w-full line-clamp-1 md:hidden">{video?.ownerChannelName || ''}</span>
-                    </div>
-                  </div>
-                  <div className="p-3 w-full hidden md:block">{video?.ownerChannelName || ''}</div>
-                  <div className="md:p-3 w-fit flex-shrink-0 hidden md:block cursor-pointer" onClick={() => handleLike(video.videoId)}>
-                    {
-                      video?.isLiked ? (
-                        <ion-icon name="heart"/>
-                      ) : (
-                        <ion-icon name="heart-outline"/>
-                      )
-                    }
-                  </div>
-                  <div className="p-3 w-fit hidden md:block">
-                    <a target="_blank" href={video.video_url}>
-                      Youtube <ion-icon name="open-outline"></ion-icon>
-                    </a>
-                  </div>
-                  <div className="p-3 w-12 flex-shrink-0 text-right">{getTime(+(video?.lengthSeconds || 0))}</div>
-                  <div onClick={() => handleDelete(video?.videoId)} className="p-3 w-8 flex-shrink-0 cursor-pointer">
-                    <ion-icon name="trash-outline"/>
-                  </div>
-                </div>
-              ))
-            }
-          </div>
-          <div className="absolute bottom-0 h-[68px] bg-white border-t border-solid border-black-10 w-full overflow-hidden flex flex-col py-3 box-border items-center text-left text-sm text-black-20">
-            <InputBar isError={isError} yurl={yurl} handleOnChange={handleOnChange} handleSubmit={handleSubmit} />
-          </div>
-          <Player video={video} handleNext={handleNext} handlePrev={handlePrev} />
-        </div>
-      </div>
-    </div>
-  )
-}
-export default Main;
               videos.map((video: any) => (
                 <div key={`${video?.videoId}`} className="flex border-b border-gray-800 items-center">
                   {
@@ -209,9 +152,9 @@ export default Main;
                       )
                     }
                   </div>
-                  <div className="p-3 w-fit hidden md:block">
-                    <a target="_blank" href={video.video_url}>
-                      Youtube <ion-icon name="open-outline"></ion-icon>
+                  <div className="pl-2 w-fit hidden md:flex">
+                    <a className="flex leading-3 gap-1" target="_blank" href={video.video_url}>
+                      Open <ion-icon name="open-outline"></ion-icon>
                     </a>
                   </div>
                   <div className="p-3 w-12 flex-shrink-0 text-right">{getTime(+(video?.lengthSeconds || 0))}</div>
@@ -222,7 +165,7 @@ export default Main;
               ))
             }
           </div>
-          <div className="absolute bottom-0 h-[68px] bg-white border-t border-solid border-black-10 w-full overflow-hidden flex flex-col py-3 box-border items-center text-left text-sm text-black-20">
+          <div className="absolute bottom-0 h-[68px] border-t border-solid border-black-10 w-full overflow-hidden flex flex-col py-3 box-border items-center text-left text-sm text-black-20">
             <InputBar isError={isError} yurl={yurl} handleOnChange={handleOnChange} handleSubmit={handleSubmit} />
           </div>
         </div>
