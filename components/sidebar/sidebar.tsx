@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { playlists as mock } from "../../data";
 import { usePlaylist } from "../../store/usePlaylist";
 import { IPlaylist } from "../../types/playlist";
-import { Input, Icon } from "@nextui-org/react";
+import { Input } from "@nextui-org/react";
 
 const SideBar = () => {
   const {
