@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { playlists as mock } from "../../data";
 import { usePlaylist } from "../../store/usePlaylist";
 import { IPlaylist } from "../../types/playlist";
+import { Button, Input, Icon } from "nextui";
 
 const SideBar = () => {
   const {
@@ -51,12 +52,12 @@ const SideBar = () => {
               className={`self-stretch rounded-lg cursor-pointer flex flex-row p-3 items-center justify-start relative gap-3 hover:bg-gray-300 ${item.id === current ? 'bg-gray-300' : ''}`}
               onClick={() => setCurrent(item.id)}
             >
-              <ion-icon name="musical-notes-outline" />
+          <Icon name="musical-notes-outline" />
               <div className="relative leading-5">
                 {item.name}
               </div>
               <div className="absolute right-2" onClick={handleDelete(item.id)}>
-                <ion-icon name="trash-outline" />
+              <Icon name="trash-outline" />
               </div>
             </div>
           ))
@@ -64,14 +65,14 @@ const SideBar = () => {
         {
           isAddNewList ? (
              <div className="self-stretch rounded-lg cursor-pointer flex flex-row mt-2">
-                <input
-                  onChange={(e) => setName(e.target.value)}
-                  onKeyUp={(e) => {
-                    if (e.code === 'Enter') handleAddNewList();
-                  }}
-                  value={name}
-                  placeholder="Playlist name"
-                  className="h-10 self-stretch flex-1 outline-none bg-gray-200 rounded-lg px-4" /> 
+              <Input
+                onChange={(e) => setName(e.target.value)}
+                onKeyUp={(e) => {
+                  if (e.code === 'Enter') handleAddNewList();
+                }}
+                value={name}
+                placeholder="Playlist name"
+                className="h-10 self-stretch flex-1 outline-none bg-gray-200 rounded-lg px-4" /> 
               </div>
             ) : (
               <button
@@ -86,25 +87,21 @@ const SideBar = () => {
       </div>
       <div className="w-auto flex flex-col items-start justify-start gap-1 hidden">
         <div className="self-stretch flex flex-row p-3 items-center justify-start relative gap-3">
-          <img className="relative w-6 h-6" alt="" src="/trashd2.svg" />
+              <Icon name="trashd2" />
           <div className="relative leading-5 ">
             Clear conversations
           </div>
         </div>
         <div className="self-stretch flex flex-row p-3 items-center justify-start relative gap-3">
-          <img className="relative w-6 h-6" alt="" src="/sund4.svg" />
+          <Icon name="sund4" />
           <div className="relative leading-5 ">Light mode</div>
         </div>
         <div className="self-stretch flex flex-row p-3 items-center justify-start relative gap-3">
-          <img className="relative w-6 h-6" alt="" src="/userd3.svg" />
+          <Icon name="userd3" />
           <div className="relative leading-5">My account</div>
         </div>
         <div className="self-stretch flex flex-row p-3 items-center justify-start relative gap-3">
-          <img
-            className="relative w-6 h-6"
-            alt=""
-            src="/arrowsquareoutd2.svg"
-          />
+          <Icon name="signoutd2" />
           <div className="relative leading-5 ">{`Updates & FAQ`}</div>
         </div>
         <div className="self-stretch flex flex-row p-3 items-center justify-start relative gap-3">
