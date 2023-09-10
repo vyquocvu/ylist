@@ -9,6 +9,7 @@ import { usePlayer } from "../../store/usePlayer";
 import { usePlaylist } from "../../store/usePlaylist";
 import { IPlaylist, IVideo } from "../../types/playlist";
 import { Image } from "@nextui-org/react";
+import AudioWaveIcon from "../shared/audio-wave-icon";
 
 const Main = () => {
   const [yurl, setYurl] = useState('');
@@ -124,7 +125,7 @@ const Main = () => {
                     playingId === video?.videoId ? (
                       <div className="md:p-3 w-8 flex-shrink-0">
                         {
-                          isPlaying ? <img src="/audio-wave.gif" className="w-5" /> : <ion-icon name="pause-outline"/>
+                          isPlaying ? <AudioWaveIcon /> : <ion-icon name="pause-outline"/>
                         }
                       </div>) : (
                       <div onClick={() => handleClickPlay(video?.videoId as string)} className="cursor-pointer md:p-3 w-8 flex-shrink-0">
@@ -133,7 +134,7 @@ const Main = () => {
                     )
                   }
                   <div className="p-3 w-full flex items-center text-xs">
-                    <img height={30} src={`https://i.ytimg.com/vi/${video?.videoId}/mqdefault.jpg`} />
+                    <img alt="" height={30} src={`https://i.ytimg.com/vi/${video?.videoId}/mqdefault.jpg`} />
                     <div className="flex flex-col text-left">
                       <span className="pl-4 w-full line-clamp-1 text-left">
                         {video?.title || ''} 
@@ -165,9 +166,7 @@ const Main = () => {
               ))
             }
           </div>
-          <div className="absolute bottom-0 h-[68px] border-t border-solid border-black-10 w-full overflow-hidden flex flex-col py-3 box-border items-center text-left text-sm text-black-20">
-            <InputBar isError={isError} yurl={yurl} handleOnChange={handleOnChange} handleSubmit={handleSubmit} />
-          </div>
+          <InputBar isError={isError} yurl={yurl} handleOnChange={handleOnChange} handleSubmit={handleSubmit} />
         </div>
       </div>
       <Player video={video} handleNext={handleNext} handlePrev={handlePrev} />

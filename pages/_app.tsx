@@ -3,6 +3,7 @@ import Head from "next/head";
 import {NextUIProvider} from "@nextui-org/react";
 import type { AppProps } from "next/app";
 import "./global.css";
+import Script from "next/script";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -14,9 +15,9 @@ function MyApp({ Component, pageProps }: AppProps) {
             name="viewport"
             content="minimum-scale=1, initial-scale=1, width=device-width"
           />
-          <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-          <script src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
         </Head>
+        <Script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></Script>
+        <Script src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></Script>
         <Component {...pageProps} />
       </main>
     </NextUIProvider>
