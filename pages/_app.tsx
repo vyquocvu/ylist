@@ -10,7 +10,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <NextUIProvider>
       <main className="dark w-full h-full text-foreground bg-background">
         <Head>
-          <title>Linkdio</title>
+          <title>Ylist</title>
           <meta
             name="viewport"
             content="minimum-scale=1, initial-scale=1, width=device-width"
