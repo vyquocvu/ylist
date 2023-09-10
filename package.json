@@ -1,9 +1,10 @@
 {
-  "name": "Linkdio",
+  "name": "ulist",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@nextui-org/react": "^2.1.7",
+    "@vercel/kv": "^0.2.2",
     "framer-motion": "^10.16.1",
     "howler": "^2.2.3",
     "nanoid": "^4.0.2",
@@ -13,7 +14,7 @@
     "react-router-dom": "^6.2.1",
     "sweetalert2": "^11.4.2",
     "typescript": "4.7.3",
-    "ytdl-core": "^4.11.5",
+    "ytdl-core": "4.10.0",
     "zustand": "^4.3.9"
   },
   "devDependencies": {

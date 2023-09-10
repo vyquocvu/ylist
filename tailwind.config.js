@@ -21,11 +21,6 @@ module.exports = {
         regular: "Inter",
       },
     },
-    fontSize: {
-      sm: "14px",
-      xs: "12px",
-      lg: "18px",
-    },
   },
   corePlugins: {
     preflight: false,

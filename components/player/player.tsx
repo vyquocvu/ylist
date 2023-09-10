@@ -74,6 +74,7 @@ const Player = ({ video, handleNext, handlePrev }: PlayerProps) => {
       setIsPlaying(true);
       setSound(newSound);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [playingId]);
 
   useEffect(() => {
@@ -109,7 +110,7 @@ const Player = ({ video, handleNext, handlePrev }: PlayerProps) => {
       }, 1000);
     }
     return () => clearInterval(interval);
-  }, [isLoaded]);
+  }, [isLoaded, sound]);
 
   const playingButton = () => {
     if (isPlaying) {
@@ -150,7 +151,7 @@ const Player = ({ video, handleNext, handlePrev }: PlayerProps) => {
       <div className="flex h-full items-center">
         <div id="cover-and-title" className="flex w-1/3 items-center justify-start gap-2 px-2">
           <div id="cover" className="h-20 hidden md:block">
-            <img src={thumbnail} className="object-cover h-full w-full" />
+            <img alt="" src={thumbnail} className="object-cover h-full w-full" />
           </div>
           <div id="title" className="w-8/12 text-gray-700 flex flex-col justify-center">
             <div className="font-semibold text-sm line-clamp-3 my-0 scroll-left break-keep whitespace-nowrap">

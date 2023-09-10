@@ -21,7 +21,7 @@ const SideBar = () => {
       setPlaylists(mock as IPlaylist[]);
       setCurrent('v0uTDmLk');
     }
-  }, []);
+  }, [playlists.length, setCurrent, setPlaylists]);
 
   const handleAddNewList = () => {
     if (!name) {
